@@ -19,6 +19,7 @@ $("button").on("click", function () {
         // stores the response data
         var results = response.data
         for (var i = 0; i < results.length; i++) {
+
             // Creating a div to hold the gif
             var gifDiv = $("<div>");
             // add class to div
@@ -38,23 +39,22 @@ $("button").on("click", function () {
             gifImage.attr("data-animate", results[i].images.original.url);
             // setting the data state
             gifImage.attr("data-state", "still");
-            console.log(gifImage);
-
             // Appending the paragraph and image tag to the gifDiv
             gifDiv.append(p);
             gifDiv.append(gifImage);
 
             // Prependng the gifDiv to the HTML page in the "#gif-div" div
             $("#gif-div").prepend(gifDiv);
-        };
 
+            
+        };
 
     });
 
 });
 
-$("img").on("click", function () {
-    console.log(test);
+$(".gif").on("click", function () {
+    console.log("test");
     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
     var state = $(this).attr("data-state");
     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
