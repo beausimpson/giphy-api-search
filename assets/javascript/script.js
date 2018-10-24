@@ -25,27 +25,45 @@ function displayGifs() {
             // Creating a div to hold the gif
             var gifDiv = $("<div>");
             // add class to div
-            gifDiv.addClass("col-md-4 gifDiv");
+            gifDiv.addClass("col-md-3 gifDiv");
 
-
+            // Creating a paragraph tag with the result item's title
+            var title = $("<p>").text(results[i].title);
+            // adds class to title p tag
+            title.addClass("title");
             // Creating a paragraph tag with the result item's rating
-            var p = $("<p>").text("Rating: " + results[i].rating);
-            // Creating and storing an image tag
+            var rating = $("<p>").text("Rating: " + results[i].rating);
+            // adds class to rating p tag
+            rating.addClass("rating");
+            // creates and stores an image tag
             var gifImage = $("<img>");
-            // adding class to img 
+            // adds class to img 
             gifImage.addClass("img-fluid gif");
-            // Setting the src attribute of the image to a property pulled off the result item
-            gifImage.attr("src", results[i].images.original_still.url);
-            // setting the data-still / data-animate attributes for start & stopping of gif
-            gifImage.attr("data-still", results[i].images.original_still.url);
-            gifImage.attr("data-animate", results[i].images.original.url);
-            // setting the data state
+            // creates and stores download p tag
+            var downloadGif = $("<p>");
+            // adds class to the download p tag
+            downloadGif.addClass("download")
+            // adds the download link
+            var downloadLink = $("<a>").html("<i class='fas fa-download'></i> Download");
+            // adds src to downlaod anchor tag
+            downloadLink.attr("href", results[i].images.original.url)
+            // adds the download link to download p tag
+            downloadLink.attr("download", results[i].title)
+            // makes link open in new tab
+            downloadLink.attr("target", "_blank")
+            // appends the download link to download gif p tag
+            downloadGif.append(downloadLink);
+            // sets the src attribute of the image to a property pulled off the result item
+            gifImage.attr("src", results[i].images.fixed_width_still.url);
+            // sets the data-still / data-animate attributes for start & stopping of gif
+            gifImage.attr("data-still", results[i].images.fixed_width_still.url);
+            gifImage.attr("data-animate", results[i].images.fixed_width.url);
+            // sets the data state
             gifImage.attr("data-state", "still");
-            // Appending the paragraph and image tag to the gifDiv
-            gifDiv.append(p);
-            gifDiv.append(gifImage);
+            // appends the paragraphs and image tag to the gifDiv
+            gifDiv.append(title, rating, gifImage, downloadGif);
 
-            // Prependng the gifDiv to the HTML page in the "#gif-div" div
+            // prepends the gifDiv to the HTML page in the "#gif-div" div
             $("#gif-div").prepend(gifDiv);
 
 
@@ -91,9 +109,9 @@ $("#add-gif").on("click", function (event) {
     $("#gif-input").val("");
 });
 
-// Adds a click event listener to all elements with a class of "gif" to start and stop teh gifs
+// Adds a click event listener to all elements with a class of "gif" to start and stop the gifs
 $(document).on("click", ".gif", function () {
-    console.log("test");
+
     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
     var state = $(this).attr("data-state");
     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -107,6 +125,12 @@ $(document).on("click", ".gif", function () {
         $(this).attr("data-state", "still");
     }
 });
+
+// adds a click event listener to all elements with an id of "download" to download the gifs
+// $(document).on("click", ".download", function (event) {
+//     event.preventDefault();
+//     window.location.href = 'uploads/file.doc';
+// })
 
 // Adds a click event listener to all elements with a class of "gifs-btn" to display the differant gifs for the selected button
 $(document).on("click", ".gifs-btn", displayGifs);
