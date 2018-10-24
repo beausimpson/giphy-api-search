@@ -2,7 +2,10 @@
 // variable to store array of strings
 var topics = ["the office", "parks and recreation", "bob's burgers", "archer"];
 
-function displayGifTitles() {
+function displayGifs() {
+
+    // clears the gif div
+    $("#gif-div").empty();
     // Grabbing and storing the data-tvShow property value from the button
     var tvShow = $(this).attr("data-name");
     // giphy api key
@@ -22,7 +25,7 @@ function displayGifTitles() {
             // Creating a div to hold the gif
             var gifDiv = $("<div>");
             // add class to div
-            gifDiv.addClass("gifDiv");
+            gifDiv.addClass("col-md-4 gifDiv");
 
 
             // Creating a paragraph tag with the result item's rating
@@ -30,7 +33,7 @@ function displayGifTitles() {
             // Creating and storing an image tag
             var gifImage = $("<img>");
             // adding class to img 
-            gifImage.addClass("gif");
+            gifImage.addClass("img-fluid gif");
             // Setting the src attribute of the image to a property pulled off the result item
             gifImage.attr("src", results[i].images.original_still.url);
             // setting the data-still / data-animate attributes for start & stopping of gif
@@ -74,7 +77,7 @@ function renderButtons() {
 
 }
 
-// This function handles events where a movie button is clicked
+// This function handles events where a gif button is clicked
 $("#add-gif").on("click", function (event) {
     event.preventDefault();
     // This line grabs the input from the textbox
@@ -88,24 +91,25 @@ $("#add-gif").on("click", function (event) {
     $("#gif-input").val("");
 });
 
+// Adds a click event listener to all elements with a class of "gif" to start and stop teh gifs
+$(document).on("click", ".gif", function () {
+    console.log("test");
+    // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
+    var state = $(this).attr("data-state");
+    // If the clicked image's state is still, update its src attribute to what its data-animate value is.
+    // Then, set the image's data-state to animate
+    // Else set src to the data-still value
+    if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+    } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+    }
+});
 
-// $(".gif").on("click", function () {
-//     console.log("test");
-//     // The attr jQuery method allows us to get or set the value of any attribute on our HTML element
-//     var state = $(this).attr("data-state");
-//     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
-//     // Then, set the image's data-state to animate
-//     // Else set src to the data-still value
-//     if (state === "still") {
-//         $(this).attr("src", $(this).attr("data-animate"));
-//         $(this).attr("data-state", "animate");
-//     } else {
-//         $(this).attr("src", $(this).attr("data-still"));
-//         $(this).attr("data-state", "still");
-//     }
-// });
-
-$(document).on("click", ".gifs-btn", displayGifTitles);
+// Adds a click event listener to all elements with a class of "gifs-btn" to display the differant gifs for the selected button
+$(document).on("click", ".gifs-btn", displayGifs);
 
 // Calling the renderButtons function to display the intial buttons
 renderButtons();

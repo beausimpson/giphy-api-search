@@ -1,0 +1,18 @@
+
+/* gifs buttons */
+.gifs-btn {
+    border-radius: 5px;
+    margin-right: 10px;
+    color: #ffffff;
+    background: #44b9b3;
+}
+
+
+/* add gifs button */
+#add-gif {
+    background: #b20000;
+    color: #ffffff;
+    border-radius: 5px;
+    margin-top: 10px;
+    margin-left: 25px;
+}
