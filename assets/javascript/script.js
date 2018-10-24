@@ -126,12 +126,6 @@ $(document).on("click", ".gif", function () {
     }
 });
 
-// adds a click event listener to all elements with an id of "download" to download the gifs
-// $(document).on("click", ".download", function (event) {
-//     event.preventDefault();
-//     window.location.href = 'uploads/file.doc';
-// })
-
 // Adds a click event listener to all elements with a class of "gifs-btn" to display the differant gifs for the selected button
 $(document).on("click", ".gifs-btn", displayGifs);
 
