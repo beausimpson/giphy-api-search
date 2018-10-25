@@ -25,7 +25,7 @@
     color: #ffffff;
     border-radius: 5px;
     margin-top: 10px;
-    margin-left: 20px;
+    margin-left: 27px;
 }
 
 /* gif div */
@@ -43,4 +43,9 @@
 .rating {
     font-size: 14px;
     margin-bottom: 5px;
+}
+
+/* download gif link */
+.download a {
+    text-decoration: none;  
 }
